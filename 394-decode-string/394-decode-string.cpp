@@ -1,47 +1,45 @@
 class Solution {
 public:
-    
-    string reverseString(string s) {
-        reverse(s.begin(), s.end());
-        return s;
-    }
     string decodeString(string s) {
-        string decode, temp;
-        stack<string> st;
-        stack<int> repeat;
+        string decode, temp, numstr;
+        stack<char> st;
         
         for (int i = 0; i < s.size(); i++) {
             if (s[i] != ']') {
-                temp.push_back(s[i]);
-                st.push(temp);
-                temp = "";
+                st.push(s[i]);
             } else {
-                while(st.top() != "[") {
-                    temp.append(reverseString(st.top()));
+                
+                while(!st.empty() && st.top() != '[') {
+                    temp.push_back(st.top());
                     st.pop();
                 }
                 st.pop();
                 
-                string revString = reverseString(temp);
-                temp = "";
-                while(!st.empty() && st.top().size() == 1 && isdigit(st.top()[0])) {
-                    temp.append(reverseString(st.top()));
+                reverse(temp.begin(), temp.end());
+                while(!st.empty() && isdigit(st.top())) {
+                    numstr.push_back(st.top());
                     st.pop();
                 }
-                reverse(temp.begin(), temp.end());
-                int repeat = stoi(temp);
-                temp = "";
+                reverse(numstr.begin(), numstr.end());
+                int repeat = stoi(numstr);
                 for(int j = 0; j < repeat; j++) {
-                    st.push(revString);
+                    for (char ch:temp) {
+                        st.push(ch);
+                    }
                 }
+                
+                
+                numstr = "";
+                temp = "";
             }
         }
         
         while(!st.empty()) {
-            decode.append(reverseString(st.top()));
+            decode.push_back(st.top());
             st.pop();
         }
-                             
-        return reverseString(decode);
+                
+        reverse(decode.begin(), decode.end());
+        return decode;
     }
 };
