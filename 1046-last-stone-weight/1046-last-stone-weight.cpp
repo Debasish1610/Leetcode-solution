@@ -1,24 +1,23 @@
 class Solution {
 public:
     int lastStoneWeight(vector<int>& stones) {
-        multiset<int, greater<int>> st;
-        // multiset<int>::reverse_iterator itr1, itr2;
+        priority_queue<int> pq;
         
         for (int i = 0; i < stones.size(); i++) {
-            st.insert(stones[i]);
+            pq.push(stones[i]);
         }
         
-        while(st.size() > 1) {
-            auto itr1 = st.begin();
-            auto itr2 = ++st.begin();
+        while(pq.size() > 1) {
+            int num1 = pq.top();
+            pq.pop();
+            int num2 = pq.top();
+            pq.pop();
             
-            if (*itr1 - *itr2 > 0) {
-                st.insert(*itr1 - *itr2);
+            if (num1 - num2 > 0) {
+                pq.push(num1-num2);
             }
-            st.erase(itr1);
-            st.erase(itr2);
         }
         
-        return st.empty() ? 0 : *st.begin();
+        return pq.empty() ? 0 : pq.top();
     }
 };
