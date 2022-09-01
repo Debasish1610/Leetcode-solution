@@ -16,12 +16,10 @@ public:
             return 0;
         }
         
-        int value = 0;
-        
         if (root->val >= maxvalue) {
-            value++;
+            return goodNodes(root->left, root->val) + goodNodes(root->right, root->val) + 1;
         }
         
-        return goodNodes(root->left, max(maxvalue, root->val)) + goodNodes(root->right, max(maxvalue, root->val)) + value;
+        return goodNodes(root->left, maxvalue) + goodNodes(root->right, maxvalue) + 0;
     }
 };
