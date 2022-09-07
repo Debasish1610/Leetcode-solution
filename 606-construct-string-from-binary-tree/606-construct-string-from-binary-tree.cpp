@@ -13,11 +13,7 @@ class Solution {
 public:
     void makeStr(TreeNode* root, string &str) {
         if (root == NULL) return;
-        int value = abs(root->val);
-        if (root->val < 0) {
-            str.push_back('-');
-        }
-        str = str + to_string(value);
+        str = str + to_string(root->val);
         
         if (root->left == NULL && root->right != NULL) {
             str.push_back('(');
