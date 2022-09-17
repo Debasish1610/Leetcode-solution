@@ -2,16 +2,16 @@ class Solution {
 public:
     map<string, int>palindromeMap;
     bool isPalindrome(string &s) {
-        if (palindromeMap.find(s) != palindromeMap.end()) {
-            return palindromeMap[s];
-        }
+        // if (palindromeMap.find(s) != palindromeMap.end()) {
+        //     return palindromeMap[s];
+        // }
         
         int left=0, right = s.size()-1;
         while(left < right && s[left] == s[right]) {
             left++;
             right--;
         }
-        palindromeMap[s] = (left >= right) ? 1:0;
+        // palindromeMap[s] = (left >= right) ? 1:0;
         return left >= right;
     }
     
