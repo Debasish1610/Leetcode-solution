@@ -13,15 +13,14 @@ class Solution {
 public:
     void dfs(TreeNode* root, vector<int>&value) {
         if (root == NULL) return;
-        value.push_back(root->val);
         dfs(root->left, value);
+        value.push_back(root->val);
         dfs(root->right, value);
         return;
     }
     int minDiffInBST(TreeNode* root) {
         vector<int>value;
         dfs(root, value);
-        sort(value.begin(), value.end());
         int ans = INT_MAX;
         for(int i = 1; i < value.size(); i++) {
             ans = min(ans, value[i]-value[i-1]);
